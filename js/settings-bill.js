@@ -35,65 +35,75 @@ var callsTotalSettings=0;
 var totSetiingBill= 0;
 
 
+
+
 function settingTheBills(){
-    callsSetting = callsCostSettingElement.value
-    smsSetting = smsCostSettingElement.value
-    warning =  warningSettingElement.value
-    critical = criticalSettingElement.value
-    addClass()
-    // console.log("call " +callsSetting,  " sms " + smsSetting,  " warning " + warning  )
+    if(callsCostSettingElement.value && smsCostSettingElement.value ){
+        callsSetting = Number(callsCostSettingElement.value)
+        smsSetting = Number(smsCostSettingElement.value)
+        warning =  warningSettingElement.value
+        critical = criticalSettingElement.value
+        addClass()
+    }
+   
+    
 }
 
 
 
-function addButton(){
-    
-var itemSetting;
+function addButton(){    
      var checkedRadioBtn = document.querySelector("input[name='billItemTypeWithSettings']:checked");
         if (checkedRadioBtn){
-            itemSetting  = checkedRadioBtn.value
-    // billItemType will be 'call' or 'sms'
-    if(itemSetting==="call"){
-        callsTotalSettings+= callsSetting
-        totSetiingBill+= callsSetting
-    }
-
-   else if(itemSetting==="sms"){
-        smsTotalSettings+= smsSetting
-        totSetiingBill+= smsSetting
-    }
-
-}
-
-
-addClass()
-
-
+            var itemSetting  = checkedRadioBtn.value
+             // billItemType will be 'call' or 'sms'
+             if (totSetiingBill < critical){
+                if(itemSetting==="call"){
+                    callsTotalSettings += callsSetting
+                // callTotals1 += callsSetting
+                }
+    
+                else if(itemSetting==="sms"){
+                    smsTotalSettings += smsSetting
+                    //smsTotals1+= smsSetting
+                }
+    
+             }
+            
+        }
 
 
 
-    callsTotElement.innerHTML = totSetiingBill.toFixed(2);
+
+    callsTotElement.innerHTML = callsTotalSettings.toFixed(2);
     smsTotElement.innerHTML = smsTotalSettings.toFixed(2);
     totSetiingBill = smsTotalSettings + callsTotalSettings;
     totalElement.innerHTML = totSetiingBill.toFixed(2);
-   
+    
+    addClass()
     
 
-    }
+}
 
 
 
 function addClass(){
 
-    if (totSetiingBill >= 50){
+    if (totSetiingBill >= critical){
         // adding the danger class will make the text red
         totalElement.classList.add("danger");
+        totalElement.classList.remove("warning");
     }
-    else if (totSetiingBill >= 30){
+    else if (totSetiingBill >= warning){
         totalElement.classList.add("warning");
+        totalElement.classList.remove("danger");
     }
 
+    else {
+        totalElement.classList.remove("warning");
+        totalElement.classList.remove("danger");
     }
+
+}
 
 
 

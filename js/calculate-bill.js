@@ -32,13 +32,22 @@ var billString = billStringElem.value;
     
     //roundedBillTotal.classList.remove("warning");
     //roundedBillTotal.classList.remove("danger");
+
+    if(roundedBillTotal<20){
+        billTotalElem.classList.remove("warning");
+        billTotalElem.classList.remove("danger");
+    }
     
-    if (roundedBillTotal > 20.00){
+    else if (roundedBillTotal >= 20.00 && roundedBillTotal<30){
+        billTotalElem.classList.remove("danger");
         billTotalElem.classList.add("warning");
     }
-     if (roundedBillTotal > 30.00){
+    else if (roundedBillTotal >= 30.00){
+        billTotalElem.classList.remove("warning");
         billTotalElem.classList.add("danger");
     }
+
+    
     
 }
 
