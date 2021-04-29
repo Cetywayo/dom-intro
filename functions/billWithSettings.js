@@ -52,7 +52,7 @@ function BillWithSettings(){
 
     }
 
-    function getTotalCallcost(){
+    function getTotalCallcost(){ //total call
         return totalCall;
     }
 

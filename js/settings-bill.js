@@ -94,7 +94,7 @@ function addAndRemoveClass(){
     // if (totSetiingBill >= critical){
         // adding the danger class will make the text red
         
-        totalElementclassList.remove("danger");
+        totalElement.classList.remove("danger");
         totalElement.classList.remove("warning");
         totalElement.classList.add(factoryInstance.addClass());
 
