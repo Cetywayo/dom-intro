@@ -22,28 +22,30 @@ var addBtnSettingElement = document.querySelector('.addSettingsBtn')
 var updateBtnSettingElement = document.querySelector('.updateSettings')
 
 
+var factoryInstance =  BillWithSettings()
+
 // create a variables that will keep track of all the settings
-var smsSetting;
-var callsSetting;
-var warning;
-var critical;
+// var smsSetting;
+// var callsSetting;
+// var warning;
+// var critical;
 
 
 // create a variables that will keep track of all three totals.
-var smsTotalSettings=0;
-var callsTotalSettings=0;
-var totSetiingBill= 0;
+// var smsTotalSettings=0;
+// var callsTotalSettings=0;
+// var totSetiingBill= 0;
 
 
 
 
 function settingTheBills(){
     if(callsCostSettingElement.value && smsCostSettingElement.value ){
-        callsSetting = Number(callsCostSettingElement.value)
-        smsSetting = Number(smsCostSettingElement.value)
-        warning =  warningSettingElement.value
-        critical = criticalSettingElement.value
-        addClass()
+         factoryInstance.setCallCost(Number(callsCostSettingElement.value))
+        factoryInstance.setSmsCost(Number(smsCostSettingElement.value))
+        factoryInstance.setWarningLevel(Number(warningSettingElement.value))
+        factoryInstance.setCriticalLevel(Number( criticalSettingElement.value))
+        addAndRemoveClass()
     }
    
     
@@ -55,53 +57,57 @@ function addButton(){
      var checkedRadioBtn = document.querySelector("input[name='billItemTypeWithSettings']:checked");
         if (checkedRadioBtn){
             var itemSetting  = checkedRadioBtn.value
+            factoryInstance.addTotals(itemSetting)
              // billItemType will be 'call' or 'sms'
-             if (totSetiingBill < critical){
-                if(itemSetting==="call"){
-                    callsTotalSettings += callsSetting
-                // callTotals1 += callsSetting
-                }
+            //  if (totSetiingBill < critical){
+            //     if(itemSetting==="call"){
+            //         callsTotalSettings += callsSetting
+            //     // callTotals1 += callsSetting
+            //     }
     
-                else if(itemSetting==="sms"){
-                    smsTotalSettings += smsSetting
-                    //smsTotals1+= smsSetting
-                }
+            //     else if(itemSetting==="sms"){
+            //         smsTotalSettings += smsSetting
+            //         //smsTotals1+= smsSetting
+            //     }
     
-             }
+            //  }
             
         }
 
 
 
 
-    callsTotElement.innerHTML = callsTotalSettings.toFixed(2);
-    smsTotElement.innerHTML = smsTotalSettings.toFixed(2);
-    totSetiingBill = smsTotalSettings + callsTotalSettings;
+    callsTotElement.innerHTML = factoryInstance.getTotalCallcost().toFixed(2);
+    smsTotElement.innerHTML = factoryInstance.getTotalSmscost().toFixed(2);
+    totSetiingBill = factoryInstance.getTotalcost()
     totalElement.innerHTML = totSetiingBill.toFixed(2);
     
-    addClass()
+    addAndRemoveClass()
     
 
 }
 
 
 
-function addClass(){
+function addAndRemoveClass(){
 
-    if (totSetiingBill >= critical){
+    // if (totSetiingBill >= critical){
         // adding the danger class will make the text red
-        totalElement.classList.add("danger");
+        
+        totalElementclassList.remove("danger");
         totalElement.classList.remove("warning");
-    }
-    else if (totSetiingBill >= warning){
-        totalElement.classList.add("warning");
-        totalElement.classList.remove("danger");
-    }
+        totalElement.classList.add(factoryInstance.addClass());
 
-    else {
-        totalElement.classList.remove("warning");
-        totalElement.classList.remove("danger");
-    }
+    // }
+    // else if (totSetiingBill >= warning){
+    //     totalElement.classList.add("warning");
+    //     totalElement.classList.remove("danger");
+    // }
+
+    // else {
+    //     totalElement.classList.remove("warning");
+    //     totalElement.classList.remove("danger");
+    // }
 
 }
 

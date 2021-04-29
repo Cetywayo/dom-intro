@@ -5,35 +5,51 @@ var billTotalElem = document.querySelector('.billTotal')
 //get a reference to the billString
 var billStringElem = document.querySelector('.billString')
 
+var factoryInstanceCalcBill =  CalculateBill()
+
 //create the function that will be called when the calculate button is pressed
 function calculateBtnClicked(){
 //alert("I am button")    
 //console.log(billStringElem.value)
 
+
+
 var billString = billStringElem.value;
     //split the string
     var billItems = billString.split(",");
+
+   
+    billTotalElem.innerHTML = factoryInstanceCalcBill.entercalculateBill(billStringElem.value);
+    
     // a variable for the total phone bill.
-    var billTotal = 0;
-    //loop over all the bill items
-    for (var i=0;i<billItems.length;i++){
-        var billItem = billItems[i].trim();
-        if (billItem === "call"){
-            billTotal += 2.75;
-        }
-        else if (billItem === "sms"){
-            billTotal += 0.75;
-        }
-    }
+    // var billTotal = 0;
+    // //loop over all the bill items
+    // for (var i=0;i<billItems.length;i++){
+    //     var billItem = billItems[i].trim();
+    //     if (billItem === "call"){
+    //         billTotal += 2.75;
+    //     }
+    //     else if (billItem === "sms"){
+    //         billTotal += 0.75;
+    //     }
+    // }
    
     //round to two decimals
-    var roundedBillTotal = billTotal.toFixed(2);
-    billTotalElem.innerHTML = roundedBillTotal;
+
+    
+
+    
+    // var roundedBillTotal = factoryInstanceCalcBill.getTot1().toFixed(2);
+    // billTotalElem.innerHTML = roundedBillTotal;
     
     //roundedBillTotal.classList.remove("warning");
     //roundedBillTotal.classList.remove("danger");
 
-    if(roundedBillTotal<20){
+    billTotalElem.classList.remove("danger");
+    billTotalElem.classList.remove("warning");
+    billTotalElem.classList.add(factoryInstanceCalcBill.getLevel(billStringElem.value));
+
+    /*if(roundedBillTotal<20){
         billTotalElem.classList.remove("warning");
         billTotalElem.classList.remove("danger");
     }
@@ -45,7 +61,7 @@ var billString = billStringElem.value;
     else if (roundedBillTotal >= 30.00){
         billTotalElem.classList.remove("warning");
         billTotalElem.classList.add("danger");
-    }
+    } */
 
     
     

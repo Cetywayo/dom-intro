@@ -5,8 +5,12 @@ var btn = document.querySelector('.addToBillBtn')
 var callTotalOneElem = document.querySelector('.callTotalOne')
 var smsTotalOneElem = document.querySelector('.smsTotalOne')
 var totalOneElem = document.querySelector('.totalOne')
+
+
 //get a reference to the add button
 var addbtnElem = document.querySelector('.addToBillBtn')
+
+var factoryInstanceTextBill =  TextBill()
 
 //create a variable that will keep track of the total bill
 var totbill=0;
@@ -18,26 +22,38 @@ function textBillTotal(){
     // get the value entered in the billType textfield
     var billTypeText = billTypeTextElem.value.trim();
     // update the correct total
-    if (billTypeText === "call"){
-        callTotal += 2.75
-    }
-    else if (billTypeText === "sms"){
-        smsTotal += 0.75;
-    }
+
+
+
+    totalOneElem.innerHTML = factoryInstanceTextBill.enterTextBill(billTypeTextElem.value);
+    
+      // if (billTypeText === "call"){
+      //     callTotal += 2.75
+      //   }
+      //   else if (billTypeText === "sms"){
+      //     smsTotal += 0.75;
+      //   }
     
     //update the totals that is displayed on the screen.
-    callTotalOneElem.innerHTML = callTotal.toFixed(2);
-    smsTotalOneElem.innerHTML = smsTotal.toFixed(2);
-    totbill = callTotal + smsTotal;
+    callTotalOneElem.innerHTML = factoryInstanceTextBill.getCall()
+    smsTotalOneElem.innerHTML = factoryInstanceTextBill.getSms()
+    totbill = factoryInstanceTextBill.getTot();
     totalOneElem.innerHTML = totbill.toFixed(2);
 
-    if (totbill >= 50){
+       // if (totSetiingBill >= critical){
         // adding the danger class will make the text red
-        totalOneElem.classList.add("danger");
-    }
-    else if (totbill >= 30){
-        totalOneElem.classList.add("warning");
-    }
+        // totalOneElem.classList.remove("danger");
+        // totalOneElem.classList.remove("warning");
+        totalOneElem.classList.add(factoryInstanceTextBill.addClassLevels());
+
+
+  //  if (totbill >= 50){
+        // adding the danger class will make the text red
+      //  totalOneElem.classList.add("danger");
+   // }
+  //  else if (totbill >= 30){
+       // totalOneElem.classList.add("warning");
+  //  }
 }
 
 //btn.addEventListener("click", textBillTotal)
